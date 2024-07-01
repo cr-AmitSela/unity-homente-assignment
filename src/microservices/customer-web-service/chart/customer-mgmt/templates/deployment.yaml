@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-service
+  template:
+    metadata:
+      labels:
+        app: web-service
+    spec:
+      containers:
+        - name: web-service
+          image: sela1811/web-service:v1.0.4
+          ports:
+            - containerPort: 8081
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-cluster-0.kafka-cluster-headless.kafka-cluster.svc.cluster.local:9092"
